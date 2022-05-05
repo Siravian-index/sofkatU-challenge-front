@@ -17,7 +17,7 @@ const TodoForm: React.FC<Props> = ({ parentCategory }) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<userInput>()
+  } = useForm<userInput>({ mode: 'onSubmit', reValidateMode: 'onSubmit' })
   const onSubmit: SubmitHandler<userInput> = async (data: userInput) => {
     const todo = await createTodo({ title: data.title, categoryFK: parentCategory.id })
     dispatch({ type: stateAction.ADD_TODO, payload: todo })

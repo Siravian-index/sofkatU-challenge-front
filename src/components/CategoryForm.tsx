@@ -14,7 +14,7 @@ const CategoryForm: React.FunctionComponent<Props> = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<userInput>()
+  } = useForm<userInput>({ mode: 'onSubmit', reValidateMode: 'onSubmit' })
   const onSubmit: SubmitHandler<userInput> = async (data) => {
     const category = await createCategory(data)
     dispatch({ type: stateAction.ADD_CATEGORY, payload: category })
