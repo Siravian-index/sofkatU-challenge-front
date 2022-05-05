@@ -1,34 +1,36 @@
 import * as React from 'react'
 
-import { useTodoState } from '../stateManagement/ContextProvider'
-import { todo, todoAction } from '../stateManagement/reducer'
+import { stateAction, todo, todoList } from '../stateManagement/reducer'
 import { createTodo } from '../service/todoService'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { useCategoryState } from '../stateManagement/ContextProvider'
 
-type userInputType = { title: string; message: string; isDone: boolean }
+interface Props {
+  parentCategory: { id: number; title: string; todoList: todoList }
+}
+type userInput = { title: string }
 
-const TodoForm: React.FC = () => {
-  const [{ title, message, isDone }, setUserInput] = React.useState<userInputType>({
-    title: '',
-    message: '',
-    isDone: false,
-  })
-  const { dispatch } = useTodoState()
-
-  const handleCheck = () => {
-    setUserInput({ title, message, isDone: !isDone })
-  }
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (title && message) {
-      const savedTodo: todo = await createTodo({ title, message, isDone })
-      dispatch({ type: todoAction.ADD, payload: savedTodo })
-      setUserInput({ title: '', message: '', isDone: false })
-    }
+const TodoForm: React.FC<Props> = ({ parentCategory }) => {
+  const MIN_LENGTH = 3
+  const { dispatch } = useCategoryState()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<userInput>()
+  const onSubmit: SubmitHandler<userInput> = async (data) => {
+    //   {
+    //     "title": "cook chicken",
+    //     "done": true,
+    //     "categoryFK": 6
+    // }
+    // make it return the whole new category instead?
+    const todo = await createTodo({ title: data.title, categoryFK: parentCategory.id })
+    dispatch({ type: stateAction.ADD_TODO, payload: todo })
   }
 
   return (
-    <form className='w-full max-w-sm p-2' onSubmit={(e) => onSubmit(e)}>
+    <form className='w-full max-w-sm p-2' onSubmit={handleSubmit(onSubmit)}>
       <div className='md:flex md:items-center mb-6'>
         <div className='md:w-1/3'>
           <label className='block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4' htmlFor='inline-full-name'>
@@ -37,40 +39,14 @@ const TodoForm: React.FC = () => {
         </div>
         <div className='md:w-2/3'>
           <input
+            {...register('title', { required: true, minLength: MIN_LENGTH })}
             className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-orange-500'
             id='inline-full-name'
             type='text'
-            onChange={(e) => setUserInput({ message, isDone, title: e.target.value })}
-            value={title}
           />
+          {errors.title?.type === 'required' && <p>This field is required</p>}
+          {errors.title?.type === 'minLength' && <p>To-do name must be at least {MIN_LENGTH} characters long</p>}
         </div>
-      </div>
-      <div className='md:flex md:items-center mb-6'>
-        <div className='md:w-1/3'>
-          <label className='block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4' htmlFor='inline-password'>
-            Message
-          </label>
-        </div>
-        <div className='md:w-2/3'>
-          <textarea
-            className='max-h-20 resize-none bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-orange-500'
-            id='inline-full-name'
-            onChange={(e) => setUserInput({ title, isDone, message: e.target.value })}
-            value={message}
-          />
-        </div>
-      </div>
-      <div className='flex justify-center md:items-center mb-6'>
-        <div className='md:w-1/3'></div>
-        <label className='md:w-2/3  text-gray-500 font-bold flex justify-evenly  cursor-pointer'>
-          <span className='text-sm'>Is it done?</span>
-          <input
-            className='ml-4 leading-tight accent-orange-500 w-6 h-6 rounded  cursor-pointer'
-            type='checkbox'
-            checked={isDone}
-            onChange={() => handleCheck()}
-          />
-        </label>
       </div>
       <div className='flex md:items-center'>
         <div className='w-2/3 md:w-1/3'></div>

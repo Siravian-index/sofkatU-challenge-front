@@ -6,7 +6,7 @@ export enum stateAction {
   REMOVE_TODO = 'REMOVE_TODO',
   UPDATE_TODO = 'UPDATE_TODO',
 }
-export type todo = { title: string; id: number; isDone: boolean }
+export type todo = { title: string; id: number; done: boolean; categoryFK: number }
 export type todoList = todo[]
 export type category = { id: number; title: string; todoList: todoList }
 export type categoryList = category[]
@@ -25,6 +25,11 @@ function reducer(state: categoryList, action: actionType): categoryList {
     case stateAction.DELETE_CATEGORY:
       return state.filter((c) => c.id !== category.id)
     case stateAction.ADD_TODO:
+      const parentCategory = state.find((c) => c.id === todo.categoryFK)
+      if (parentCategory) {
+        const updatedTodoList = [...parentCategory.todoList, todo]
+        return state.map((c) => (c.id === parentCategory.id ? { ...parentCategory, todoList: updatedTodoList } : c))
+      }
       return state
     case stateAction.REMOVE_TODO:
       return state

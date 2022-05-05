@@ -13,7 +13,7 @@ const HEADERS = {
   'Content-Type': 'application/json',
 }
 
-type todoWithoutId = { title: string; message: string; isDone: boolean }
+type todoWithoutId = { title: string; categoryFK: number }
 
 export const createTodo = async (data: todoWithoutId): Promise<todo> => {
   const res = await fetch(ENDPOINT, {
