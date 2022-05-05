@@ -32,6 +32,11 @@ function reducer(state: categoryList, action: actionType): categoryList {
       }
       return state
     case stateAction.REMOVE_TODO:
+      const parent = state.find((c) => c.id === todo.categoryFK)
+      if (parent) {
+        const updatedList = parent.todoList.filter((t) => t.id !== todo.id)
+        return state.map((c) => (c.id === parent.id ? { ...parent, todoList: updatedList } : c))
+      }
       return state
     case stateAction.UPDATE_TODO:
       return state

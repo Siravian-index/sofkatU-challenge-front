@@ -9,8 +9,6 @@ interface Props {
   category: { id: number; title: string; todoList: todoList }
 }
 
-// dispatch actions related with todos
-
 const Category: React.FunctionComponent<Props> = ({ category }) => {
   const { dispatch } = useCategoryState()
 
