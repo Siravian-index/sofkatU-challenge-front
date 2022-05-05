@@ -39,6 +39,9 @@ function reducer(state: categoryList, action: actionType): categoryList {
       }
       return state
     case stateAction.UPDATE_TODO:
+      console.log('reducer update todo')
+
+      console.log(todo)
       return state
     default:
       throw new Error('Illegal stateAction passed')

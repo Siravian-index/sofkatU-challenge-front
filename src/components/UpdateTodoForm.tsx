@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { useForm } from 'react-hook-form'
-import { todo } from '../stateManagement/reducer'
+import { updateTodo } from '../service/todoService'
+import { useCategoryState } from '../stateManagement/ContextProvider'
+import { stateAction, todo } from '../stateManagement/reducer'
 
 interface Props {
   todoToUpdate: todo
@@ -8,12 +9,39 @@ interface Props {
 }
 
 const UpdateTodoForm: React.FunctionComponent<Props> = ({ todoToUpdate, setTodoToUpdate }) => {
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const MIN_LENGTH = 3
+  const ERROR_TIMER = 2000
+  const [error, setError] = React.useState(false)
+  const { dispatch } = useCategoryState()
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>, todoWillUpdate: todo) => {
     e.preventDefault()
+    if (todoWillUpdate.title.length > MIN_LENGTH) {
+      setError(false)
+      const updated: todo = await updateTodo(todoWillUpdate)
+      if (updated.categoryFK) {
+        dispatch({ type: stateAction.UPDATE_TODO, payload: updated })
+      }
+    } else {
+      setError(true)
+    }
   }
 
+  React.useEffect(() => {
+    let m = true
+    let id = 0
+    if (m) {
+      id = setTimeout(() => {
+        setError(false)
+      }, ERROR_TIMER)
+    }
+    return () => {
+      m = false
+      clearTimeout(id)
+    }
+  }, [error])
+
   return (
-    <form className='w-full max-w-sm p-2' onSubmit={(e) => onSubmit(e)}>
+    <form className='w-full max-w-sm p-2' onSubmit={(e) => onSubmit(e, todoToUpdate)}>
       <div className='md:flex md:items-center mb-6'>
         <div className='md:w-1/3'>
           <label className='block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4' htmlFor='inline-full-name'>
@@ -22,13 +50,14 @@ const UpdateTodoForm: React.FunctionComponent<Props> = ({ todoToUpdate, setTodoT
         </div>
         <div className='md:w-2/3'>
           <input
+            value={todoToUpdate.title}
+            onChange={(e) => setTodoToUpdate({ ...todoToUpdate, title: e.target.value })}
             placeholder='update title'
             className='bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-orange-500'
             id='inline-full-name'
             type='text'
           />
-          {/* {errors.title?.type === 'required' && <p>This field is required</p>}
-          {errors.title?.type === 'minLength' && <p>To-do name must be at least {MIN_LENGTH} characters long</p>} */}
+          {error && <p>To-do name must be at least {MIN_LENGTH} characters long</p>}
         </div>
       </div>
       <div className='flex md:items-center'>

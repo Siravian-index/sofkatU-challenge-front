@@ -37,7 +37,10 @@ const Todo: React.FC<Props> = ({ todo: t, setTodoToUpdate }) => {
         <span className='inline-block px-3 py-1 text-sm font-semibold  mr-2 mb-2'>
           <button
             className='rounded bg-transparent hover:bg-gray-500 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent'
-            onClick={(e) => setTodoToUpdate(t)}
+            onClick={(e) => {
+              console.log('todo to update', t)
+              setTodoToUpdate(t)
+            }}
           >
             Edit
           </button>
