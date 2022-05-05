@@ -46,7 +46,7 @@ const TodoForm: React.FC<Props> = ({ parentCategory }) => {
         </div>
       </div>
       <div className='flex md:items-center'>
-        <div className='w-2/3 md:w-1/3'></div>
+        {/* <div className='w-2/3 md:w-1/3'></div>
         <div className='w-1/3 md:w-2/3'>
           <button
             className='shadow bg-orange-500 hover:bg-orange-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded'
@@ -54,7 +54,7 @@ const TodoForm: React.FC<Props> = ({ parentCategory }) => {
           >
             Add
           </button>
-        </div>
+        </div> */}
       </div>
     </form>
   )

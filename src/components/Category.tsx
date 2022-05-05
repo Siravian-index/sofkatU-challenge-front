@@ -22,9 +22,18 @@ const Category: React.FunctionComponent<Props> = ({ category }) => {
   }
 
   return (
-    <div className=''>
-      <h3>{category.title}</h3>
-      <button onClick={() => deleteSingleCategory(category)}>Delete</button>
+    <div className='border-orange-500 border p-4 m-4'>
+      <div className='flex justify-evenly'>
+        <span className='mt-2 text-4xl font-bold leading-normal mb-2 text-orange-500 hover:text-orange-400 hover:underline cursor-pointer'>
+          {category.title}
+        </span>
+        <button
+          className='rounded bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-1 px-2 border border-red-500 hover:border-transparent'
+          onClick={() => deleteSingleCategory(category)}
+        >
+          Delete
+        </button>
+      </div>
       {todoToUpdate.title ? (
         <UpdateTodoForm todoToUpdate={todoToUpdate} setTodoToUpdate={setTodoToUpdate} />
       ) : (

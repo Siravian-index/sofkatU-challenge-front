@@ -9,7 +9,7 @@ const CategoryList: React.FunctionComponent<Props> = () => {
   // dispatch actions related with category
 
   return (
-    <div className=''>
+    <div className='flex flex-col md:flex-row md:flex-wrap'>
       {categoryList.map((category) => (
         <Category key={category.id} category={category} />
       ))}

@@ -26,9 +26,9 @@ const Todo: React.FC<Props> = ({ todo: t, setTodoToUpdate }) => {
   return (
     <div className={`max-w-sm rounded shadow-xl ${!t.done && 'border-r border-b border-orange-500'}`}>
       <div className={`px-6 py-4 ${t.done && 'line-through decoration-orange-500 decoration-4 '}`}>
-        <div className='font-bold text-xl mb-2'>{t.title}</div>
+        <div className='font-bold text-xl'>{t.title}</div>
       </div>
-      <div className='px-6 pt-4 pb-2'>
+      <div className='px-6 pb-2'>
         <span className='inline-block  rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>
           <input
             className='accent-orange-500 w-6 h-6 rounded'
@@ -39,11 +39,17 @@ const Todo: React.FC<Props> = ({ todo: t, setTodoToUpdate }) => {
         </span>
         <span className='inline-block px-3 py-1 text-sm font-semibold  mr-2 mb-2'>
           <button
-            className='rounded bg-transparent hover:bg-gray-500 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent'
+            // px-8 py-3 text-white bg-gray-300 rounded focus:outline-none
+            className={`rounded py-2 px-4 ${
+              t.done
+                ? 'text-white bg-gray-300 rounded focus:outline-none'
+                : 'bg-transparent hover:bg-gray-500 text-gray-700 font-semibold hover:text-white border border-gray-500 hover:border-transparent'
+            }  `}
             onClick={(e) => {
               console.log('todo to update', t)
               setTodoToUpdate(t)
             }}
+            disabled={t.done}
           >
             Edit
           </button>
