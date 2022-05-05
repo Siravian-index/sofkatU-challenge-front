@@ -39,7 +39,6 @@ const Todo: React.FC<Props> = ({ todo: t, setTodoToUpdate }) => {
         </span>
         <span className='inline-block px-3 py-1 text-sm font-semibold  mr-2 mb-2'>
           <button
-            // px-8 py-3 text-white bg-gray-300 rounded focus:outline-none
             className={`rounded py-2 px-4 ${
               t.done
                 ? 'text-white bg-gray-300 rounded focus:outline-none'

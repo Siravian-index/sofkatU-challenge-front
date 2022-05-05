@@ -22,7 +22,7 @@ const Category: React.FunctionComponent<Props> = ({ category }) => {
   }
 
   return (
-    <div className='border-orange-500 border p-4 m-4'>
+    <div className='border-orange-500 border-2 p-4 m-4 '>
       <div className='flex justify-evenly'>
         <span className='mt-2 text-4xl font-bold leading-normal mb-2 text-orange-500 hover:text-orange-400 hover:underline cursor-pointer'>
           {category.title}
