@@ -26,4 +26,4 @@ const ContextProvider: React.FC<Props> = ({ children }) => {
 
 export default ContextProvider
 
-export const useTodoState = () => React.useContext(Context)
+export const useCategoryState = () => React.useContext(Context)

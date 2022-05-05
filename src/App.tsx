@@ -1,4 +1,5 @@
 import React from 'react'
+import CategoryList from './components/CategoryList'
 
 import Title from './components/Title'
 import TodoForm from './components/TodoForm'
@@ -8,7 +9,9 @@ import ContextProvider from './stateManagement/ContextProvider'
 function App() {
   return (
     <div className='flex justify-center flex-col items-center'>
-      <ContextProvider></ContextProvider>
+      <ContextProvider>
+        <CategoryList />
+      </ContextProvider>
     </div>
   )
 }
