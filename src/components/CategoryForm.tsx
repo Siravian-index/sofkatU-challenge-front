@@ -1,5 +1,8 @@
 import * as React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { createCategory } from '../service/categoryService'
+import { useCategoryState } from '../stateManagement/ContextProvider'
+import { stateAction } from '../stateManagement/reducer'
 
 interface Props {}
 
@@ -7,14 +10,16 @@ type userInput = { title: string }
 
 const CategoryForm: React.FunctionComponent<Props> = () => {
   const MIN_LENGTH = 3
+  const { dispatch } = useCategoryState()
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<userInput>()
-  const onSubmit: SubmitHandler<userInput> = (data) => console.log(data)
-  console.log(errors)
+  const onSubmit: SubmitHandler<userInput> = async (data) => {
+    const category = await createCategory(data)
+    dispatch({ type: stateAction.ADD_CATEGORY, payload: category })
+  }
 
   return (
     <form className='w-full max-w-sm p-2' onSubmit={handleSubmit(onSubmit)}>

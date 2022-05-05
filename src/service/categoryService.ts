@@ -12,7 +12,7 @@ const HEADERS = {
   'Content-Type': 'application/json',
 }
 
-type categoryWithoutId = { title: string; todoList: todoList }
+type categoryWithoutId = { title: string }
 
 export const getCategories = async (): Promise<categoryList> => {
   try {
@@ -24,13 +24,13 @@ export const getCategories = async (): Promise<categoryList> => {
   }
 }
 
-export const createCategory = async (data: categoryWithoutId): Promise<categoryList> => {
+export const createCategory = async (data: categoryWithoutId): Promise<category> => {
   const res = await fetch(ENDPOINT, {
     method: HTTP_METHODS.POST,
     headers: HEADERS,
     body: JSON.stringify(data),
   })
-  const categories: categoryList = await res.json()
+  const categories: category = await res.json()
   return categories
 }
 

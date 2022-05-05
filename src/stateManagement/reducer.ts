@@ -15,11 +15,13 @@ export type actionType = { type: stateAction; payload: todo | category | categor
 function reducer(state: categoryList, action: actionType): categoryList {
   const { type, payload } = action
   const categoryList = payload as categoryList
+  const category = payload as category
+  const todo = payload as todo
   switch (type) {
     case stateAction.LOAD_CATEGORIES:
       return categoryList
     case stateAction.ADD_CATEGORY:
-      return state
+      return [...state, category]
     case stateAction.DELETE_CATEGORY:
       return state
     case stateAction.ADD_TODO:
