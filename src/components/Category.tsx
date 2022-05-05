@@ -2,6 +2,7 @@ import * as React from 'react'
 import { deleteCategory } from '../service/categoryService'
 import { useCategoryState } from '../stateManagement/ContextProvider'
 import { category, stateAction, todo, todoList } from '../types'
+import { capitalizeFirstLetterOf } from '../utils'
 import Todo from './Todo'
 import TodoForm from './TodoForm'
 import UpdateTodoForm from './UpdateTodoForm'
@@ -25,7 +26,7 @@ const Category: React.FunctionComponent<Props> = ({ category }) => {
     <div className='border-orange-500 border-2 p-4 m-4 '>
       <div className='flex justify-evenly'>
         <span className='mt-2 text-4xl font-bold leading-normal mb-2 text-orange-500 hover:text-orange-400 hover:underline cursor-pointer'>
-          {category.title}
+          {capitalizeFirstLetterOf(category.title)}
         </span>
         <button
           className='rounded bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-1 px-2 border border-red-500 hover:border-transparent'

@@ -2,6 +2,7 @@ import * as React from 'react'
 import { deleteTodo, updateTodo } from '../service/todoService'
 import { useCategoryState } from '../stateManagement/ContextProvider'
 import { stateAction, todo } from '../types'
+import { capitalizeFirstLetterOf } from '../utils'
 
 interface Props {
   todo: todo
@@ -26,7 +27,7 @@ const Todo: React.FC<Props> = ({ todo: t, setTodoToUpdate }) => {
   return (
     <div className={`max-w-sm rounded shadow-xl ${!t.done && 'border-r border-b border-orange-500'}`}>
       <div className={`px-6 py-4 ${t.done && 'line-through decoration-orange-500 decoration-4 '}`}>
-        <div className='font-bold text-xl'>{t.title}</div>
+        <div className='font-bold text-xl'>{capitalizeFirstLetterOf(t.title)}</div>
       </div>
       <div className='px-6 pb-2'>
         <span className='inline-block  rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>
