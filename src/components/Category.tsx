@@ -25,7 +25,11 @@ const Category: React.FunctionComponent<Props> = ({ category }) => {
     <div className=''>
       <h3>{category.title}</h3>
       <button onClick={() => deleteSingleCategory(category)}>Delete</button>
-      {todoToUpdate.title ? <UpdateTodoForm todoToUpdate={todoToUpdate} /> : <TodoForm parentCategory={category} />}
+      {todoToUpdate.title ? (
+        <UpdateTodoForm todoToUpdate={todoToUpdate} setTodoToUpdate={setTodoToUpdate} />
+      ) : (
+        <TodoForm parentCategory={category} />
+      )}
       {category.todoList.map((todo) => (
         <Todo key={todo.id} todo={todo} setTodoToUpdate={setTodoToUpdate} />
       ))}
