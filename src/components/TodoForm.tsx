@@ -16,17 +16,14 @@ const TodoForm: React.FC<Props> = ({ parentCategory }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<userInput>()
-  const onSubmit: SubmitHandler<userInput> = async (data) => {
-    //   {
-    //     "title": "cook chicken",
-    //     "done": true,
-    //     "categoryFK": 6
-    // }
+  const onSubmit: SubmitHandler<userInput> = async (data: userInput) => {
     // make it return the whole new category instead?
     const todo = await createTodo({ title: data.title, categoryFK: parentCategory.id })
     dispatch({ type: stateAction.ADD_TODO, payload: todo })
+    reset()
   }
 
   return (
