@@ -10,7 +10,7 @@ interface Props {
 
 const Category: React.FunctionComponent<Props> = ({ category }) => {
   return (
-    <div className='basis-4/5'>
+    <div className=''>
       <h3>{category.title}</h3>
       <button>Delete</button>
       {category.todoList.map((todo) => (
