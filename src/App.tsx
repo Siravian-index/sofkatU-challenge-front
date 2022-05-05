@@ -8,7 +8,7 @@ import ContextProvider from './stateManagement/ContextProvider'
 
 function App() {
   return (
-    <div className='flex justify-center flex-col items-center'>
+    <div className=''>
       <ContextProvider>
         <CategoryList />
       </ContextProvider>
