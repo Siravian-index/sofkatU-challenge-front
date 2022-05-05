@@ -39,9 +39,11 @@ function reducer(state: categoryList, action: actionType): categoryList {
       }
       return state
     case stateAction.UPDATE_TODO:
-      console.log('reducer update todo')
-
-      console.log(todo)
+      const parentC = state.find((c) => c.id === todo.categoryFK)
+      if (parentC) {
+        const updatedArray = parentC.todoList.map((t) => (t.id === todo.id ? { ...todo } : t))
+        return state.map((c) => (c.id === parentC.id ? { ...parentC, todoList: updatedArray } : c))
+      }
       return state
     default:
       throw new Error('Illegal stateAction passed')

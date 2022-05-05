@@ -20,6 +20,7 @@ const UpdateTodoForm: React.FunctionComponent<Props> = ({ todoToUpdate, setTodoT
       const updated: todo = await updateTodo(todoWillUpdate)
       if (updated.categoryFK) {
         dispatch({ type: stateAction.UPDATE_TODO, payload: updated })
+        setTodoToUpdate({} as todo)
       }
     } else {
       setError(true)

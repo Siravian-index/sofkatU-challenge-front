@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { deleteTodo } from '../service/todoService'
+import { deleteTodo, updateTodo } from '../service/todoService'
 import { useCategoryState } from '../stateManagement/ContextProvider'
 import { stateAction, todo } from '../stateManagement/reducer'
 
@@ -10,9 +10,12 @@ interface Props {
 
 const Todo: React.FC<Props> = ({ todo: t, setTodoToUpdate }) => {
   const { dispatch } = useCategoryState()
-  const updateCheckBox = async () => {}
-
-  const updateTitle = async () => {}
+  const updateCheckBox = async (e: React.ChangeEvent<HTMLInputElement>, flipTodoCheck: todo) => {
+    const flippedCheck: todo = await updateTodo({ ...flipTodoCheck, done: !flipTodoCheck.done })
+    if (flipTodoCheck) {
+      dispatch({ type: stateAction.UPDATE_TODO, payload: flippedCheck })
+    }
+  }
 
   const deleteSingleTodo = async (todo: todo) => {
     const wasDeleted = await deleteTodo(todo)
@@ -30,8 +33,8 @@ const Todo: React.FC<Props> = ({ todo: t, setTodoToUpdate }) => {
           <input
             className='accent-orange-500 w-6 h-6 rounded'
             type='checkbox'
-            // checked={t.done}
-            // onChange={(e) => checkBox(e, t)}
+            checked={t.done}
+            onChange={(e) => updateCheckBox(e, t)}
           />
         </span>
         <span className='inline-block px-3 py-1 text-sm font-semibold  mr-2 mb-2'>
