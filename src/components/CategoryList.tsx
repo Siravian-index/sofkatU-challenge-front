@@ -6,7 +6,6 @@ interface Props {}
 
 const CategoryList: React.FunctionComponent<Props> = () => {
   const { state: categoryList } = useCategoryState()
-  // dispatch actions related with category
 
   return (
     <div className='flex flex-col md:flex-row md:flex-wrap'>

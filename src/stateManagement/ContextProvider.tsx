@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { getCategories } from '../service/categoryService'
-import reducer, { actionType, categoryList, stateAction } from './reducer'
+import { actionType, categoryList, stateAction } from '../types'
+import reducer from './reducer'
 
 type Props = { children?: React.ReactNode }
 

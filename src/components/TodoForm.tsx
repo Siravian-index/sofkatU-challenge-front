@@ -1,14 +1,13 @@
 import * as React from 'react'
 
-import { stateAction, todo, todoList } from '../stateManagement/reducer'
 import { createTodo } from '../service/todoService'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useCategoryState } from '../stateManagement/ContextProvider'
+import { stateAction, todoList, userInput } from '../types'
 
 interface Props {
   parentCategory: { id: number; title: string; todoList: todoList }
 }
-type userInput = { title: string }
 
 const TodoForm: React.FC<Props> = ({ parentCategory }) => {
   const MIN_LENGTH = 3

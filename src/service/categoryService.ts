@@ -1,18 +1,11 @@
-import { category, categoryList, todo, todoList } from './../stateManagement/reducer'
+import { category, categoryList, categoryWithoutId, HTTP_METHODS } from '../types'
 
 const ENDPOINT = 'http://localhost:8080/api/v1/categories'
-
-enum HTTP_METHODS {
-  POST = 'POST',
-  DELETE = 'DELETE',
-}
 
 const HEADERS = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
 }
-
-type categoryWithoutId = { title: string }
 
 export const getCategories = async (): Promise<categoryList> => {
   try {

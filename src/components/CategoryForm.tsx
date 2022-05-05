@@ -2,11 +2,9 @@ import * as React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { createCategory } from '../service/categoryService'
 import { useCategoryState } from '../stateManagement/ContextProvider'
-import { stateAction } from '../stateManagement/reducer'
+import { stateAction, userInput } from '../types'
 
 interface Props {}
-
-type userInput = { title: string }
 
 const CategoryForm: React.FunctionComponent<Props> = () => {
   const MIN_LENGTH = 3

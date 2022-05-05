@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { deleteTodo, updateTodo } from '../service/todoService'
 import { useCategoryState } from '../stateManagement/ContextProvider'
-import { stateAction, todo } from '../stateManagement/reducer'
+import { stateAction, todo } from '../types'
 
 interface Props {
   todo: todo

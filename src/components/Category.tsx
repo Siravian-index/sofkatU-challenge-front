@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { deleteCategory } from '../service/categoryService'
 import { useCategoryState } from '../stateManagement/ContextProvider'
-import { category, stateAction, todo, todoList } from '../stateManagement/reducer'
+import { category, stateAction, todo, todoList } from '../types'
 import Todo from './Todo'
 import TodoForm from './TodoForm'
 import UpdateTodoForm from './UpdateTodoForm'

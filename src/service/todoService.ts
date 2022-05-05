@@ -1,19 +1,11 @@
-import { todo } from './../stateManagement/reducer'
+import { HTTP_METHODS, todo, todoWithoutId } from '../types'
 
 const ENDPOINT = 'http://localhost:8080/api/v1/todos'
-
-enum HTTP_METHODS {
-  POST = 'POST',
-  PUT = 'PUT',
-  DELETE = 'DELETE',
-}
 
 const HEADERS = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
 }
-
-type todoWithoutId = { title: string; categoryFK: number }
 
 export const createTodo = async (data: todoWithoutId): Promise<todo> => {
   const res = await fetch(ENDPOINT, {
