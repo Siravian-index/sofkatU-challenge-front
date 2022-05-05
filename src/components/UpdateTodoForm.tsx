@@ -10,7 +10,7 @@ interface Props {
 
 const UpdateTodoForm: React.FunctionComponent<Props> = ({ todoToUpdate, setTodoToUpdate }) => {
   const MIN_LENGTH = 3
-  const ERROR_TIMER = 2000
+  const ERROR_TIMER = 3500
   const [error, setError] = React.useState(false)
   const { dispatch } = useCategoryState()
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>, todoWillUpdate: todo) => {
@@ -58,7 +58,9 @@ const UpdateTodoForm: React.FunctionComponent<Props> = ({ todoToUpdate, setTodoT
             id='inline-full-name'
             type='text'
           />
-          {error && <p>To-do name must be at least {MIN_LENGTH} characters long</p>}
+          {error && (
+            <p className='text-gray-500  text-center'>To-do name must be at least {MIN_LENGTH} characters long</p>
+          )}
         </div>
       </div>
       <div className='flex md:items-center'>

@@ -40,8 +40,10 @@ const TodoForm: React.FC<Props> = ({ parentCategory }) => {
             id='inline-full-name'
             type='text'
           />
-          {errors.title?.type === 'required' && <p>This field is required</p>}
-          {errors.title?.type === 'minLength' && <p>To-do name must be at least {MIN_LENGTH} characters long</p>}
+          {errors.title?.type === 'required' && <p className='text-gray-500  text-center'>This field is required!</p>}
+          {errors.title?.type === 'minLength' && (
+            <p className='text-gray-500  text-center'>To-do name must be at least {MIN_LENGTH} characters long</p>
+          )}
         </div>
       </div>
     </form>

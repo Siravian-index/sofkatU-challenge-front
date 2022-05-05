@@ -13,6 +13,7 @@ interface Props {
 
 const Category: React.FunctionComponent<Props> = ({ category }) => {
   const [todoToUpdate, setTodoToUpdate] = React.useState<todo>({} as todo)
+  const [show, setShow] = React.useState(true)
   const { dispatch } = useCategoryState()
 
   const deleteSingleCategory = async (category: category) => {
@@ -25,7 +26,10 @@ const Category: React.FunctionComponent<Props> = ({ category }) => {
   return (
     <div className='border-orange-500 border-2 p-4 m-4 '>
       <div className='flex justify-evenly'>
-        <span className='mt-2 text-4xl font-bold leading-normal mb-2 text-orange-500 hover:text-orange-400 hover:underline cursor-pointer'>
+        <span
+          onClick={() => setShow((prev) => !prev)}
+          className='mt-2 text-4xl font-bold leading-normal mb-2 text-orange-500 hover:text-orange-400 hover:underline cursor-pointer'
+        >
           {capitalizeFirstLetterOf(category.title)}
         </span>
         <button
@@ -40,9 +44,7 @@ const Category: React.FunctionComponent<Props> = ({ category }) => {
       ) : (
         <TodoForm parentCategory={category} />
       )}
-      {category.todoList.map((todo) => (
-        <Todo key={todo.id} todo={todo} setTodoToUpdate={setTodoToUpdate} />
-      ))}
+      {show && category.todoList.map((todo) => <Todo key={todo.id} todo={todo} setTodoToUpdate={setTodoToUpdate} />)}
     </div>
   )
 }
