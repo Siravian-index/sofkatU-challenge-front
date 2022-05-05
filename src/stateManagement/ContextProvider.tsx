@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { getTodos } from '../service/todoService'
-import reducer, { actionType, categoryList } from './reducer'
+import { getCategories } from '../service/categoryService'
+import reducer, { actionType, categoryList, stateAction } from './reducer'
 
 type Props = { children?: React.ReactNode }
 
@@ -13,8 +13,10 @@ const Context = React.createContext<contextType>({} as contextType)
 const ContextProvider: React.FC<Props> = ({ children }) => {
   const [state, dispatch] = React.useReducer(reducer, [])
   const getStateFromDB = async () => {
-    const todoList = await getTodos()
-    // dispatch({ type: todoAction.LOAD, payload: todoList })
+    const categoriesList = await getCategories()
+    console.log(categoriesList)
+
+    dispatch({ type: stateAction.LOAD_CATEGORIES, payload: categoriesList })
   }
   React.useEffect(() => {
     getStateFromDB()
