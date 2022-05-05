@@ -1,15 +1,17 @@
 import * as React from 'react'
 import { deleteCategory } from '../service/categoryService'
 import { useCategoryState } from '../stateManagement/ContextProvider'
-import { category, stateAction, todoList } from '../stateManagement/reducer'
+import { category, stateAction, todo, todoList } from '../stateManagement/reducer'
 import Todo from './Todo'
 import TodoForm from './TodoForm'
+import UpdateTodoForm from './UpdateTodoForm'
 
 interface Props {
   category: { id: number; title: string; todoList: todoList }
 }
 
 const Category: React.FunctionComponent<Props> = ({ category }) => {
+  const [todoToUpdate, setTodoToUpdate] = React.useState<todo>({} as todo)
   const { dispatch } = useCategoryState()
 
   const deleteSingleCategory = async (category: category) => {
@@ -23,9 +25,9 @@ const Category: React.FunctionComponent<Props> = ({ category }) => {
     <div className=''>
       <h3>{category.title}</h3>
       <button onClick={() => deleteSingleCategory(category)}>Delete</button>
-      <TodoForm parentCategory={category} />
+      {todoToUpdate.title ? <UpdateTodoForm todoToUpdate={todoToUpdate} /> : <TodoForm parentCategory={category} />}
       {category.todoList.map((todo) => (
-        <Todo key={todo.id} todo={todo} />
+        <Todo key={todo.id} todo={todo} setTodoToUpdate={setTodoToUpdate} />
       ))}
     </div>
   )

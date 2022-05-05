@@ -5,11 +5,10 @@ import { stateAction, todo } from '../stateManagement/reducer'
 
 interface Props {
   todo: todo
-  // deleteOnClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, todo: todo): void
-  // checkBox(e: React.ChangeEvent<HTMLInputElement>, todo: todo): void
+  setTodoToUpdate: React.Dispatch<React.SetStateAction<todo>>
 }
 
-const Todo: React.FC<Props> = ({ todo: t }) => {
+const Todo: React.FC<Props> = ({ todo: t, setTodoToUpdate }) => {
   const { dispatch } = useCategoryState()
   const updateCheckBox = async () => {}
 
@@ -34,6 +33,14 @@ const Todo: React.FC<Props> = ({ todo: t }) => {
             // checked={t.done}
             // onChange={(e) => checkBox(e, t)}
           />
+        </span>
+        <span className='inline-block px-3 py-1 text-sm font-semibold  mr-2 mb-2'>
+          <button
+            className='rounded bg-transparent hover:bg-gray-500 text-gray-700 font-semibold hover:text-white py-2 px-4 border border-gray-500 hover:border-transparent'
+            onClick={(e) => setTodoToUpdate(t)}
+          >
+            Edit
+          </button>
         </span>
         <span className='inline-block px-3 py-1 text-sm font-semibold  mr-2 mb-2'>
           <button
