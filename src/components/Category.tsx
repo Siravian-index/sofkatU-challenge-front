@@ -1,5 +1,7 @@
 import * as React from 'react'
-import { todoList } from '../stateManagement/reducer'
+import { deleteCategory } from '../service/categoryService'
+import { useCategoryState } from '../stateManagement/ContextProvider'
+import { category, stateAction, todoList } from '../stateManagement/reducer'
 import Todo from './Todo'
 
 interface Props {
@@ -9,10 +11,19 @@ interface Props {
 // dispatch actions related with todos
 
 const Category: React.FunctionComponent<Props> = ({ category }) => {
+  const { dispatch } = useCategoryState()
+
+  const deleteSingleCategory = async (category: category) => {
+    const wasDeleted = await deleteCategory(category)
+    if (wasDeleted) {
+      dispatch({ type: stateAction.DELETE_CATEGORY, payload: category })
+    }
+  }
+
   return (
     <div className=''>
       <h3>{category.title}</h3>
-      <button>Delete</button>
+      <button onClick={() => deleteSingleCategory(category)}>Delete</button>
       {category.todoList.map((todo) => (
         <Todo key={todo.id} todo={todo} />
       ))}

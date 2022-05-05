@@ -23,7 +23,7 @@ function reducer(state: categoryList, action: actionType): categoryList {
     case stateAction.ADD_CATEGORY:
       return [...state, category]
     case stateAction.DELETE_CATEGORY:
-      return state
+      return state.filter((c) => c.id !== category.id)
     case stateAction.ADD_TODO:
       return state
     case stateAction.REMOVE_TODO:

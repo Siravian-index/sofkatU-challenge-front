@@ -5,7 +5,7 @@ import Category from './Category'
 interface Props {}
 
 const CategoryList: React.FunctionComponent<Props> = () => {
-  const { state: categoryList, dispatch } = useCategoryState()
+  const { state: categoryList } = useCategoryState()
   // dispatch actions related with category
 
   return (
