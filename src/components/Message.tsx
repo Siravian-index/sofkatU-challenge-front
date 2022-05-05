@@ -2,12 +2,12 @@ import * as React from 'react'
 
 interface Props {}
 
-const EmptyTodos: React.FC<Props> = () => {
-  const front = 'https://github.com/Siravian-index/todo-react-ts'
-  const back = 'https://github.com/Siravian-index/todo-api'
+const Message: React.FC<Props> = () => {
+  const front = 'https://github.com/Siravian-index/sofkatU-challenge-front'
+  const back = 'https://github.com/Siravian-index/sofkatU-challenge-back'
   return (
     <div className='text-gray-500 font-bold text-center'>
-      <p>No todos yet</p>
+      <p>David Esteban Peña Chavez</p>
       <p className='text-xs mt-7 hover:before:content-["<"] hover:after:content-["/>"] hover:text-orange-400 hover:font-mono'>
         Built with{' '}
         <span className='hover:text-blue-400 hover:underline cursor-pointer'>
@@ -26,4 +26,4 @@ const EmptyTodos: React.FC<Props> = () => {
   )
 }
 
-export default EmptyTodos
+export default Message
