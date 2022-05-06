@@ -22,3 +22,8 @@ export enum HTTP_METHODS {
   PUT = 'PUT',
   DELETE = 'DELETE',
 }
+
+export enum STATUS {
+  OK = 200,
+  CREATED = 201,
+}
