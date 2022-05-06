@@ -44,7 +44,11 @@ const Category: React.FunctionComponent<Props> = ({ category }) => {
       ) : (
         <TodoForm parentCategory={category} />
       )}
-      {show && category.todoList.map((todo) => <Todo key={todo.id} todo={todo} setTodoToUpdate={setTodoToUpdate} />)}
+      {show &&
+        category.todoList
+          .slice()
+          .sort((a, b) => Number(a.done) - Number(b.done))
+          .map((todo) => <Todo key={todo.id} todo={todo} setTodoToUpdate={setTodoToUpdate} />)}
     </div>
   )
 }
